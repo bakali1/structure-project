@@ -17,7 +17,8 @@ int num_livres(char *name) {
     return num;
 }
 
-int livre_read(char *name) {
+
+livre *livre_read(char *name) {
     FILE *pf=fopen(name,"r");
     int n = num_livres(name), i = 0; // nombre de livres
     livre livres[] = (livre *)malloc(n*sizeof(livre));
@@ -29,12 +30,12 @@ int livre_read(char *name) {
     while(!feof(pf)) {
         livre l;
         fscanf(pf,"%s %s %s %d %d %d\n",l.code,l.titre,l.auteur,&l.annee,&l.nbExemplaires,&l.nbExemplairesDisponibles);
-        printf("%s %s %s %d %d %d\n",l.code,l.titre,l.auteur,l.annee,l.nbExemplaires,l.nbExemplairesDisponibles);
         livres[i] = l;
         i++;
     }
-    return 1;
+    return livres;
 }
+
 
 int etudiant_read(char *name) {
     FILE *pf=fopen(name,"r");
@@ -90,4 +91,23 @@ int etudiant_write(char *name) {
     fprintf(pf,"%s %s %s\n",e.prenom,e.nom,e.CNIE);
     fclose(pf);
     return 1;
+}
+
+livre *livre_search(char *name, char *code) {
+    livre *l = ivre_read(name);
+    int d = num_livres(name), g = 0;
+    return search_decotomie(l, d, g, code);
+}
+int search_decotomie(livre *l, int d, int g, char *code) {
+    if (d >= g) {
+        int m = g + (d - g) / 2;
+        if (strcmp(l[m].code,code)==0) {
+            return m;
+        }
+        if (strcmp(l[m].code,code)>0) {
+            return search_decotomie(l, m-1, g, code);
+        }
+        return search_decotomie(l, d, m+1, code);
+    }
+    return -1;
 }

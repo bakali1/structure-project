@@ -9,7 +9,7 @@
 void help(){
     printf("---------------------------------------------\n");
     printf("1.Ajouter un livre\n");
-    printf("2.recherch livres\n");
+    printf("2.recherch livres\n");// haf done
     printf("3.Emprunter un livre\n");
     printf("4.Rendre un livre\n");
     printf("5.Quitter\n");
